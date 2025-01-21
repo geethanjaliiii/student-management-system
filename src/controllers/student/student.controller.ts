@@ -23,9 +23,34 @@ export class StudentController {
     }
     async studentLogin(req: Request, res:Response):Promise<void> {
         try {
-            
+            const {email,password}=req.body as {
+                email:string;
+                password:string;
+            };
+            const student = await this.studentService.checkStudentExistance(email, password);
+
+            const userData = {
+                _id:student?._id,
+                email:student?.email,
+                role:student?.role
+            };
+            res.status(200).json({
+                success:true,
+                message:"Login successfull",
+                user:userData
+            })
         } catch (error) {
-            
+            console.error("error in login",error);
+            if(error instanceof Error){
+                res.status(500).json({success:false,message:error.message})
+            }
         }
     }
+    // async studentLogout(req:AuthenticatedRequest,res:Response):Promise<void>{
+    //     try {
+            
+    //     } catch (error) {
+            
+    //     }
+    // }
 }
