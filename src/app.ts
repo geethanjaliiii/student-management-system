@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import { studentRepository } from "./repositories/student/StudentRepository";
 import { StudentService } from "./services/student/student.service";
 import { StudentController } from "./controllers/student/student.controller";
-import { StudentRoute } from "./routes/user.route";
+import { StudentRoute } from "./routes/student.route";
 
-export class app {
+export class App {
   private app: Application;
   constructor() {
     dotenv.config();

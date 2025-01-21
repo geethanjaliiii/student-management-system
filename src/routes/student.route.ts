@@ -1,5 +1,6 @@
 import { StudentController } from "../controllers/student/student.controller";
 import express, { Request, Response } from "express";
+import { userAuthMiddleware } from "../middlewares/userAuthMiddleWare";
 
 export class StudentRoute {
   private studentController: StudentController; //dependency injection, all methods in controller will be available
@@ -18,6 +19,9 @@ export class StudentRoute {
     this.userRouter.post("/login", (req: Request, res: Response) =>
       this.studentController.studentLogin(req, res)
     );
+
+   this.userRouter.put('/update',userAuthMiddleware(['student','admin']),(req:Request,res:Response)=>
+  this.studentController.updateProfile(req,res))
   }
   //this method expostes the router instances to main application(app.ts)
   public getStudentRoutes() {

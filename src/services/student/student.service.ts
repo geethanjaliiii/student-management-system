@@ -6,6 +6,7 @@ import { IStudentService } from "./IStudent.service";
 export class StudentService implements IStudentService {
   private studentRepository: IStudentRepository;
   private bcryptPass: BcryptPass;
+ 
   constructor(studentRepository: IStudentRepository) {
     this.studentRepository = studentRepository;
     this.bcryptPass = new BcryptPass();
@@ -25,6 +26,7 @@ export class StudentService implements IStudentService {
     };
     return await this.studentRepository.createStudent(studentData);
   }
+
   async checkStudentExistance(email: string, password: string): Promise<IUser> {
     const isStudentWithEmailExist =
       await this.studentRepository.findStudentByEmail(email);
@@ -40,6 +42,7 @@ export class StudentService implements IStudentService {
     }
     return isStudentWithEmailExist;
   }
+
   async updateStudent(
     id: string,
     student: Partial<IUser>
