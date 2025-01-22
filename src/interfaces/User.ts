@@ -3,9 +3,8 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-    role: 'Student'|"Teacher"|'pricipal';
+    course?: string;
+    role: 'Student'|"admin";
     isActive?:true;
-    grade?: string;
-    section?: string;
-    subject?: string;
+    enrolementDate:string   
 }

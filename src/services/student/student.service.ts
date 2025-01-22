@@ -1,5 +1,5 @@
 import { IUser } from "../../interfaces/User";
-import { IStudentRepository } from "../../repositories/student/IStudentRepository";
+import { IStudentRepository } from "../../repositories/student/IStudentRepository"; 
 import { BcryptPass } from "../../utils/bcrypt";
 import { IStudentService } from "./IStudent.service";
 

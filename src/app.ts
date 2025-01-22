@@ -4,6 +4,10 @@ import { studentRepository } from "./repositories/student/StudentRepository";
 import { StudentService } from "./services/student/student.service";
 import { StudentController } from "./controllers/student/student.controller";
 import { StudentRoute } from "./routes/student.route";
+import { AdminRepository } from "./repositories/teacher/AdminRepository";
+import { AdminController } from "./controllers/admin/admin.controller";
+import { AdminService } from "./services/admin/Admin.service";
+import { AdminRoute } from "./routes/admin.route";
 
 export class App {
   private app: Application;
@@ -13,6 +17,7 @@ export class App {
     this.setMiddlewares();
     this.setTestRoute();
     this.setStudentRoutes();
+    this.setAdminRoutes()
   }
   private setMiddlewares() {
     this.app.use(express.json());
@@ -29,7 +34,13 @@ export class App {
     const studentRoute = new StudentRoute(studentController);
     this.app.use("/api/students", studentRoute.getStudentRoutes());
   }
-
+private setAdminRoutes(){
+  const adminRepository=new AdminRepository();
+  const adminService=new AdminService(adminRepository)
+  const adminController=new AdminController(adminService);
+  const adminRoute=new AdminRoute(adminController)
+  this.app.use('/api/admin',adminRoute.getAdminRoutes())
+}
   //public method or exporting app to rerver
   public getApp() {
     return this.app;

@@ -18,23 +18,20 @@ const UserSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ["student","teacher","principal"],
-            required: true
+            enum: ["student","admin"],
+            default:"student"
         },
         isActive:{
             type: Boolean,
             default: true
         },
-        grade:{
+        course:{
             type: String
         },
-        section:{
-            type: String
-        },
-        subject:{
-            type: String
-        },
-        
+        enrolmentDate:{
+            type:Date,
+            default:Date.now()
+        }
     },
     {timestamps: true}
 )

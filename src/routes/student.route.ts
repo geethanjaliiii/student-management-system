@@ -1,6 +1,7 @@
 import { StudentController } from "../controllers/student/student.controller";
 import express, { Request, Response } from "express";
 import { userAuthMiddleware } from "../middlewares/userAuthMiddleWare";
+import { AuthenticatedRequest } from "../interfaces/AuthenticatedRequest";
 
 export class StudentRoute {
   private studentController: StudentController; //dependency injection, all methods in controller will be available
@@ -20,9 +21,19 @@ export class StudentRoute {
       this.studentController.studentLogin(req, res)
     );
 
-   this.userRouter.put('/update',userAuthMiddleware(['student','admin']),(req:Request,res:Response)=>
-  this.studentController.updateProfile(req,res))
+    this.userRouter.put(
+      "/update/:id",
+      userAuthMiddleware(["student", "admin"]),
+      (req: Request, res: Response) =>
+        this.studentController.updateProfile(req, res)
+    );
+    this.userRouter.post(
+      "/logout",
+      userAuthMiddleware(["student"]),
+      (req: Request, res: Response) => this.studentController.logout(req, res)
+    );
   }
+
   //this method expostes the router instances to main application(app.ts)
   public getStudentRoutes() {
     //this method will encapsulate all userRoutes

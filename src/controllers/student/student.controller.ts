@@ -65,7 +65,7 @@ export class StudentController {
     }
   }
   async updateProfile(req: AuthenticatedRequest, res: Response): Promise<void> {
-    const { id } = req.user as { id: string };
+    const { id } = req.params as { id: string };
     const student = req.body;
     try {
       console.log(req.body);
@@ -83,6 +83,18 @@ export class StudentController {
       res
         .status(500)
         .json({ success: false, message: "Failed to update profile", error });
+    }
+  }
+  async logout(req:AuthenticatedRequest,res:Response):Promise<void>{
+    try {
+        res.clearCookie("userToken");
+        res.status(200).json({ success: true, message: "Logout success" });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ success: false, message: error.message });
+          } else {
+            res.status(500).json({ success: false, message: "An error occured" });
+          }
     }
   }
 }
